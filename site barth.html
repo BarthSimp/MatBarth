@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Amazon shop</title>
+  <style>
+    /* Estilos CSS */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #232f3e;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+    main {
+      padding: 20px;
+    }
+    .product {
+      display: inline-block;
+      width: 200px;
+      margin: 10px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+    .product img {
+      width: 150px;
+      height: 150px;
+    }
+    .product h2 {
+      font-size: 16px;
+      margin-top: 10px;
+      margin-bottom: 5px;
+    }
+    .product p {
+      font-size: 14px;
+      margin: 0;
+    }
+    .product button {
+      background-color: #f0c14b;
+      color: #111;
+      padding: 5px 10px;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .cart {
+      margin-top: 20px;
+      text-align: center;
+    }
+    .cart table {
+      width: 100%;
+    }
+    .cart th, .cart td {
+      padding: 10px;
+      border-bottom: 1px solid #ccc;
+    }
+    .cart th {
+      background-color: #232f3e;
+      color: #fff;
+    }
+    .cart td {
+      text-align: center;
+    }
+    .cart-total {
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Amazon</h1>
+  </header>
+  <main>
+    <div class="product">
+      <img src="https://thenorthface.vteximg.com.br/arquivos/ids/190124-1000-1000/camiseta-coordinate-tee-sao-paulo-preta-A005NBSP-2.png?v=637842064189370000" alt="Camisa preta clasica">
+      <h2>Produto 1</h2>
+      <p>R$ 99,99</p>
+      <button onclick="adicionarAoCarrinho(1)">Adicionar ao carrinho</button>
+    </div>
+    <div class="product">
+      <img src="https://www.oficinadoabada.com.br/wp-content/uploads/2017/12/camiseta-de-time-personalizada-1.png" alt="Blusa time futebol">
+      <h2>Produto 2</h2>
+      <p>R$ 49,99</p>
+      <button onclick="adicionarAoCarrinho(2)">Adicionar ao carrinho</button>
+    </div>
+    <div class="product">
+      <img src="https://guttibrasil.com.br/wp-content/uploads/2021/09/Calca-Gutti-Runner-frente.png" alt="Calça premium Gucci">
+      <h2>Produto 3</h2>
+      <p>R$ 29,99</p>
+      <button onclick="adicionarAoCarrinho(3)">Adicionar ao carrinho</button>
+    </div>
+    <div class="cart">
+      <h2>Carrinho</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Produto</th>
+            <th>Preço</th>
+          </tr>
+        </thead>
+        <tbody id="cart-items">
+        </tbody>
+      </table>
+      <p>Total: R$ <span id="cart-total">0.00</span></p>
+      <button onclick="finalizarCompra()">Finalizar Compra</button>
+    </div>
+  </main>
+  <script>
+    // JavaScript
+    let cartItems = [];
+    let cartTotal = 0;
+
+    function adicionarAoCarrinho(produtoId) {
+      // Obter informações do produto selecionado
+      let produto = {
+        id: produtoId,
+        nome: document.querySelector(`.product:nth-child(${produtoId}) h2`).innerText,
+        preco: document.querySelector(`.product:nth-child(${produtoId}) p`).innerText.slice(2)
+      };
+
+      // Adicionar ao carrinho
+      cartItems.push(produto);
+      cartTotal += parseFloat(produto.preco);
+
+      // Atualizar a exibição do carrinho
+      exibirCarrinho();
+    }
+
+    function exibirCarrinho() {
+      let cartItemsElement = document.getElementById('cart-items');
+      let cartTotalElement = document.getElementById('cart-total');
+
+      cartItemsElement.innerHTML = '';
+      cartItems.forEach(item => {
+        let row = document.createElement('tr');
+        let nameCell = document.createElement('td');
+        let priceCell = document.createElement('td');
+
+        nameCell.innerText = item.nome;
+        priceCell.innerText = 'R$ ' + item.preco;
+
+        row.appendChild(nameCell);
+        row.appendChild(priceCell);
+        cartItemsElement.appendChild(row);
+      });
+
+      cartTotalElement.innerText = cartTotal.toFixed(2);
+    }
+
+    function finalizarCompra() {
+      // Implemente a lógica para finalizar a compra aqui
+      alert('Compra finalizada!');
+    }
+  </script>
+</body>
+</html>
